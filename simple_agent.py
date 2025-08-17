@@ -2,8 +2,6 @@ import os
 from agents import Agent, AsyncOpenAI, OpenAIChatCompletionsModel, Runner
 from agents.run import RunConfig
 from dotenv import load_dotenv, find_dotenv
-from agents.tool import function_tool
-import asyncio
 
 load_dotenv(find_dotenv())
 
@@ -26,24 +24,13 @@ run_config = RunConfig(
 )
 
 
-
-
-
-
-
-
-
-async def main():
-    agent = Agent(
-    instructions="You are a helpful AI assistant that provides clear and accurate responses to user queries.",
-    name="Assistant",
+agent = Agent(
+instructions="You are a helpful AI assistant that provides clear and accurate responses to user queries.",
+name="Assistant",
 )
 
 
-    result = await Runner.run(agent, "sum of 2+3", run_config=run_config)
-    print(result.final_output)
+result = Runner.run_sync(agent, "sum of 2+3", run_config=run_config)
+print(result.final_output)
 
 
-
-if __name__ == "__main__":
-    asyncio.run(main())
